@@ -9,31 +9,41 @@ export function calculateRelevance(endpoint: ApiDocEndpoint, query: string): num
   let score = 0;
   const queryLower = query.toLowerCase();
 
-  const name = endpoint.name.toLowerCase();
-  if (name === queryLower) {
-    score += 100;
-  } else if (name.includes(queryLower)) {
-    score += 50;
+  if (endpoint.name) {
+    const name = endpoint.name.toLowerCase();
+    if (name === queryLower) {
+      score += 100;
+    } else if (name.includes(queryLower)) {
+      score += 50;
+    }
   }
 
-  const title = endpoint.title.toLowerCase();
-  if (title.includes(queryLower)) {
-    score += 30;
+  if (endpoint.title) {
+    const title = endpoint.title.toLowerCase();
+    if (title.includes(queryLower)) {
+      score += 30;
+    }
   }
 
-  const plainDesc = stripHtml(endpoint.description).toLowerCase();
-  if (plainDesc.includes(queryLower)) {
-    score += 20;
+  if (endpoint.description) {
+    const plainDesc = stripHtml(endpoint.description).toLowerCase();
+    if (plainDesc.includes(queryLower)) {
+      score += 20;
+    }
   }
 
-  const group = endpoint.group.toLowerCase();
-  if (group.includes(queryLower)) {
-    score += 15;
+  if (endpoint.group) {
+    const group = endpoint.group.toLowerCase();
+    if (group.includes(queryLower)) {
+      score += 15;
+    }
   }
 
-  const groupTitle = endpoint.groupTitle.toLowerCase();
-  if (groupTitle.includes(queryLower)) {
-    score += 15;
+  if (endpoint.groupTitle) {
+    const groupTitle = endpoint.groupTitle.toLowerCase();
+    if (groupTitle.includes(queryLower)) {
+      score += 15;
+    }
   }
 
   return score;
@@ -43,19 +53,19 @@ export function getMatchedFields(endpoint: ApiDocEndpoint, query: string): strin
   const queryLower = query.toLowerCase();
   const matched: string[] = [];
 
-  if (endpoint.name.toLowerCase().includes(queryLower)) {
+  if (endpoint.name && endpoint.name.toLowerCase().includes(queryLower)) {
     matched.push('name');
   }
-  if (endpoint.title.toLowerCase().includes(queryLower)) {
+  if (endpoint.title && endpoint.title.toLowerCase().includes(queryLower)) {
     matched.push('title');
   }
-  if (stripHtml(endpoint.description).toLowerCase().includes(queryLower)) {
+  if (endpoint.description && stripHtml(endpoint.description).toLowerCase().includes(queryLower)) {
     matched.push('description');
   }
-  if (endpoint.group.toLowerCase().includes(queryLower)) {
+  if (endpoint.group && endpoint.group.toLowerCase().includes(queryLower)) {
     matched.push('group');
   }
-  if (endpoint.groupTitle.toLowerCase().includes(queryLower)) {
+  if (endpoint.groupTitle && endpoint.groupTitle.toLowerCase().includes(queryLower)) {
     matched.push('groupTitle');
   }
 
