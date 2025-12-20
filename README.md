@@ -113,6 +113,32 @@ npm run typecheck
 npm start
 ```
 
+## Important: Upmind API Pagination
+
+**When calling the actual Upmind API endpoints** (e.g., in Postman or your application), be aware that:
+
+- **Default Result Limit**: Upmind API returns only **10 results by default**
+- **Pagination Parameters**: Use `limit` and `offset` query parameters to retrieve more results
+
+### Example API Calls
+
+Get first 10 invoices (default):
+```
+GET https://api.upmind.io/api/invoices
+```
+
+Get 50 invoices:
+```
+GET https://api.upmind.io/api/invoices?limit=50
+```
+
+Get next page (skip first 50, get next 50):
+```
+GET https://api.upmind.io/api/invoices?limit=50&offset=50
+```
+
+This pagination behavior applies to most Upmind API list endpoints including invoices, clients, contracts, etc.
+
 ## Data Source
 
 Documentation is fetched from:
