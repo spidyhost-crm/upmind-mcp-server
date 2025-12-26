@@ -18,7 +18,28 @@ npm run build
 
 ## Usage
 
-### Configuration for Claude Desktop
+### Configuration for Claude Code
+
+Add the MCP server using the Claude CLI:
+
+```bash
+claude mcp add --transport stdio --scope user upmind-api-docs -- node /path/to/upmind-mcp-server/dist/index.js
+```
+
+Replace `/path/to/upmind-mcp-server` with the actual path to this repository on your system.
+
+Verify the server is connected:
+
+```bash
+claude mcp list
+```
+
+You should see:
+```
+upmind-api-docs: node /path/to/upmind-mcp-server/dist/index.js - ✓ Connected
+```
+
+### Alternative: Manual Configuration for Claude Desktop
 
 Add to your Claude Desktop config file:
 
@@ -30,7 +51,7 @@ Add to your Claude Desktop config file:
   "mcpServers": {
     "upmind-api-docs": {
       "command": "node",
-      "args": ["/Users/vahid/upmind/upmind-mcp/dist/index.js"]
+      "args": ["/path/to/upmind-mcp-server/dist/index.js"]
     }
   }
 }
@@ -112,6 +133,34 @@ npm run typecheck
 # Run server
 npm start
 ```
+
+## Important: Admin API URLs
+
+**When using an admin or staff API token**, URLs in the documentation which start with `/api` should instead start with `/api/admin`.
+
+### Examples
+
+Documentation URL:
+```
+GET /api/clients
+```
+
+Actual URL when using admin/staff token:
+```
+GET https://api.upmind.io/api/admin/clients
+```
+
+Documentation URL:
+```
+GET /api/invoices
+```
+
+Actual URL when using admin/staff token:
+```
+GET https://api.upmind.io/api/admin/invoices
+```
+
+This applies to all endpoints when using admin or staff authentication tokens.
 
 ## Important: Upmind API Pagination
 
